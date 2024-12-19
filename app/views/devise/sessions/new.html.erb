@@ -1,0 +1,37 @@
+
+    <div class="registration-form">
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+            <div class="form-icon">
+                <span><i class="icon icon-user"></i></span>
+            </div>
+            <div class="form-group">
+                <%= f.label :email, 'Email' %>
+                <%= f.email_field :email, class: 'form-control item', placeholder: 'Email' %>
+            </div>
+            <div class="form-group">
+                <%= f.label :password, 'Password' %>
+                <%= f.password_field :password, class: 'form-control item', placeholder: 'Password' %>
+            </div>
+            <div class="form-group">
+                <%= f.submit 'Sign In', class: 'btn btn-block create-account' %>
+            </div>
+        <% end %>
+
+        <div class="social-media">
+            <h5>Sign in with social media</h5>
+            <div class="social-icons">
+                <a href="#"><i class="icon-social-facebook" title="Facebook"></i></a>
+                <a href="#"><i class="icon-social-google" title="Google"></i></a>
+                <a href="#"><i class="icon-social-twitter" title="Twitter"></i></a>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+    <script src="assets/js/script.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#birth-date').mask('00/00/0000');
+            $('#phone-number').mask('0000-0000');
+        })
+    </script>

@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  kiosk: one
+  user: one
+  product: one
+  status: MyString
+  quantity: 1
+  date: 2024-12-18
+
+two:
+  kiosk: two
+  user: two
+  product: two
+  status: MyString
+  quantity: 1
+  date: 2024-12-18

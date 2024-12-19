@@ -1,0 +1,67 @@
+
+/* Sticky Navbar */
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+
+/* Sticky Navbar */
+.navbar {
+  background-color: #FFDA91; /* Light yellow background */
+  padding: 10px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Logo Section */
+.logo .brand-name {
+  font-family: 'cursive';
+  font-size: 24px;
+  font-weight: bold;
+  color: #2F4F2F;
+  padding-right: 5px;
+}
+
+/* Buttons Section */
+.nav-buttons .btn {
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 8px 15px;
+  margin-left: 10px;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+/* Gradient Button */
+.gradient-btn {
+  background: linear-gradient(to right, #43A047, #388E3C);
+  transition: background 0.3s ease;
+}
+
+.gradient-btn:hover {
+  background: linear-gradient(to right, #388E3C, #2E7D32);
+}
+
+/* Content Below Navbar */
+.main-content {
+  padding: 20px;
+}

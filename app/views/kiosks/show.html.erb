@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @kiosk %>
+
+<div>
+  <%= link_to "Edit this kiosk", edit_kiosk_path(@kiosk) %> |
+  <%= link_to "Back to kiosks", kiosks_path %>
+
+  <%= button_to "Destroy this kiosk", @kiosk, method: :delete %>
+</div>

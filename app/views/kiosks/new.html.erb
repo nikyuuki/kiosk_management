@@ -1,0 +1,11 @@
+<% content_for :title, "New kiosk" %>
+
+<h1>New kiosk</h1>
+
+<%= render "form", kiosk: @kiosk %>
+
+<br>
+
+<div>
+  <%= link_to "Back to kiosks", kiosks_path %>
+</div>
