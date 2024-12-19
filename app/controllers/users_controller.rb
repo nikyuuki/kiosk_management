@@ -8,5 +8,6 @@ class UsersController < ApplicationController
     def signup
       # Signup logic here
     end
+
   end
   
