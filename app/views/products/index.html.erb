@@ -19,6 +19,7 @@
         <th>#</th>
         <th>Name</th>
         <th>Category</th>
+        <th>Price</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -27,10 +28,11 @@
         <tr id="product-row-<%= product.id %>">
           <td><%= index + 1 %></td>
           <td><%= product.name %></td>
-          <td><%= product.category %></td>
+          <td><%= product.category_product ? product.category_product.name : 'No Category' %></td>
+          <td><%= product.priceperpack %></td>
           <td>
-            <button class="btn btn-link" onclick="showModal('show', <%= product.id %>, '<%= product.name %>', '<%= product.category %>')">Show</button> |
-            <button class="btn btn-link" onclick="showModal('edit ', <%= product.id %>, '<%= product.name %>', '<%= product.category %>')">Edit</button> |
+            <button class="btn btn-link" onclick="showModal('show', <%= product.id %>, '<%= product.name %>', '<%= product.priceperpack %>')">Show</button> |
+            <button class="btn btn-link" onclick="showModal('edit ', <%= product.id %>, '<%= product.name %>', '<%= product.priceperpack %>')">Edit</button> |
             <button class="btn btn-link" onclick="showModal('delete', <%= product.id %>, '<%= product.name %>')">Delete</button>
           </td>
         </tr>
@@ -38,6 +40,9 @@
     </tbody>
   </table>
 </div>
+
+
+
 
 <!-- Show Modal -->
 <div id="show-modal" class="modal" style="display: none;">
@@ -62,12 +67,7 @@
         <%= form.label :name %>
         <%= form.text_field :name, id: 'edit-name' %>
       </div>
-
-      <div>
-        <%= form.label :category %>
-        <%= form.text_field :category, id: 'edit-category' %>
-      </div>
-
+      
       <div>
         <%= form.submit "Save Changes" %>
       </div>

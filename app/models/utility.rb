@@ -1,7 +1,5 @@
 class Utility < ApplicationRecord
-  belongs_to :kiosk
+  belongs_to :category_utility
 
   validates :name, presence: true
-  validates :description, presence: true
-  validates :kiosk_id, presence: true
 end

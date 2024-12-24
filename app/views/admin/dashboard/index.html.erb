@@ -1,33 +1,84 @@
-<section class="mb-9 mb-lg-10 mb-xxl-11 text-center text-lg-start mt-9" id="home">
-  <div>
-    <div class="row g-4 g-lg-6 g-xl-7 mb-6 mb-lg-7 mb-xl-10 align-items-center">
-      <div class="col-12 col-lg-6"><img class="img-fluid w-50 w-lg-100" src="assets/img/Hero/man_watering.png" alt="" /></div>
-      <div class="col-12 col-lg-6">
-        <h1 class="fs-5 fs-md-3 fs-xxl-2 text-black fw-light mb-4">Be a <span class="fw-bold">Plant Parent </span>today <br class="d-sm-none d-md-block d-xxl-none" />with <span class="text-gradient fw-bold">Aranyak</span></h1>
-        <p class="fs-8 fs-md-11 fs-xxl-7 text-primary mb-5 mb-lg-6 mb-xl-7 fw-light">
-          First timer or experienced, we have something for you.
-          Take a look at our vast collection of greenery & let us help you transform your household and front/back
-          yard.
-        </p>
-        <button class="btn btn-gradient fs-8 mt-1 d-inline-flex"><span>explore catalog</span><span class="uil uil-arrow-right"></span></button>
-        <!-- Add Login and Sign Up buttons -->
-        <div class="mt-4">
-          <%= link_to 'Login', new_user_session_path, class: 'btn btn-primary mr-3' %>
-          <%= link_to 'Sign Up', new_user_registration_path, class: 'btn btn-secondary' %>
+  <div class="container mt-5">
+    <h1 class="mb-4">Admin Dashboard</h1>
+    
+    <!-- Quick Overview Section -->
+    <div class="row text-center mb-5">
+      <div class="col-md-3">
+        <div class="card shadow">
+          <div class="card-body">
+            <h5>Total Kiosks</h5>
+            <h2><%= Kiosk.count %></h2>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card shadow">
+          <div class="card-body">
+            <h5>Total Products</h5>
+            <h2><%= Product.count %></h2>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card shadow">
+          <div class="card-body">
+            <h5>Total Utilities</h5>
+            <h2><%= Utility.count %></h2>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card shadow">
+          <div class="card-body">
+            <h5>Total Sales</h5>
+            <h2><%= Sale.sum(:total_price) %></h2>
+          </div>
         </div>
       </div>
     </div>
-    <div class="row g-4 g-lg-6 g-xl-7 align-items-center">
-      <div class="col-12 col-lg-6 order-1 order-lg-0">
-        <p class="fs-8 fs-md-7 fs-xxl-6 text-success fw-bold mb-x1 text-capitalize">we have got you covered </p>
-        <h1 class="fs-5 fs-md-3 fs-xxl-2 text-secondary text-capitalize fw-light mb-4">However Popular or <br class="d-none d-md-block d-lg-none" /><span class="fw-bold">rare plant </span><br class="d-none d-xl-block d-xxl-none" /><br class="d-sm-none" />it is</h1>
-        <p class="fs-8 fs-md-11 fs-xxl-7 text-primary mb-5 mb-lg-6 mb-xl-7 fw-light">
-          Our catalog of plants of fruits and flowers;
-          for indoors and outdoors; is expanding everyday.
-        </p>
-        <button class="btn btn-gradient fs-8 d-inline-flex"><span>explore catalog</span><span class="uil uil-arrow-right"></span></button>
+    
+    <!-- Management Section -->
+    <div class="row">
+      <div class="col-md-6">
+        <h3>Kiosk Management</h3>
+        <ul class="list-group">
+          <li class="list-group-item"><a href="<%= kiosks_path %>">View All Kiosks</a></li>
+          <li class="list-group-item"><a href="<%= new_kiosk_path %>">Add New Kiosk</a></li>
+        </ul>
       </div>
-      <div class="col-12 col-lg-6 order-0 order-lg-1"><img class="img-fluid w-50 w-lg-100" src="assets/img/Hero/planting.png" alt="" /></div>
+      <div class="col-md-6">
+        <h3>Product Management</h3>
+        <ul class="list-group">
+          <li class="list-group-item"><a href="<%= products_path %>">View All Products</a></li>
+          <li class="list-group-item"><a href="<%= new_product_path %>">Add New Product</a></li>
+        </ul>
+      </div>
     </div>
-  </div>
-</section>
+
+    <div class="row mt-4">
+      <div class="col-md-6">
+        <h3>Utility Management</h3>
+        <ul class="list-group">
+          <li class="list-group-item"><a href="<%= utilities_path %>">View All Utilities</a></li>
+          <li class="list-group-item"><a href="<%= new_utility_path %>">Add New Utility</a></li>
+        </ul>
+      </div>
+      <%# <div class="col-md-6"> %>
+        <%# <h3>Sales Management</h3> %>
+        <%# <ul class="list-group"> %>
+          <%# <li class="list-group-item"><a href="<%= sales_path %>">View Sales Reports</a></li> %>
+        <%# </ul> %>
+      <%# </div> %>
+    </div>
+
+    <!-- Attendant Management -->
+    <%# <div class="row mt-4"> %>
+      <%# <div class="col-md-6"> %>
+        <%# <h3>Attendant Shifts</h3> %>
+        <%# <ul class="list-group"> %>
+          <%# <li class="list-group-item"><a href="<%= attendant_shifts_path %>">View All Attendant Shifts</a></li> %>
+          <%# <li class="list-group-item"><a href="<%= new_attendant_shift_path %>">Assign New Shift</a></li> %>
+        <%# </ul> %>
+      <%# </div> %>
+    <%# </div> %>
+  </div> 

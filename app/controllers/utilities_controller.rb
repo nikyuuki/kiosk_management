@@ -4,9 +4,15 @@ class UtilitiesController < ApplicationController
 
   # GET /utilities or /utilities.json
   def index
-    @utilities = Utility.all
+    @utilities = if params[:search].present?
+      # Using an inner join to search both the utility name and category utility name
+      Utility.joins(:category_utility)
+             .where("utilities.name ILIKE :query OR category_utilities.name ILIKE :query", query: "%#{params[:search]}%")
+    else
+      Utility.all
+    end
   end
-
+  
   # GET /utilities/1 or /utilities/1.json
   def show
   end
@@ -66,6 +72,7 @@ class UtilitiesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def utility_params
-      params.require(:utility).permit(:kiosk_id, :name, :description)
+      params.require(:utility).permit(:name, :quantityperset, :category_utility_id)
     end
+    
 end

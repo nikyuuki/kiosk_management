@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_18_030643) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_24_063312) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,6 +22,19 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_18_030643) do
     t.datetime "updated_at", null: false
     t.index ["kiosk_id"], name: "index_attendant_shifts_on_kiosk_id"
     t.index ["user_id"], name: "index_attendant_shifts_on_user_id"
+  end
+
+  create_table "category_products", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "category_utilities", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_category_utilities_on_name", unique: true
   end
 
   create_table "combos", force: :cascade do |t|
@@ -53,9 +66,13 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_18_030643) do
 
   create_table "products", force: :cascade do |t|
     t.string "name"
-    t.string "category"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "category_products_id"
+    t.decimal "priceperpack", precision: 10, scale: 2
+    t.bigint "category_product_id", null: false
+    t.index ["category_product_id"], name: "index_products_on_category_product_id"
+    t.index ["category_products_id"], name: "index_products_on_category_products_id"
   end
 
   create_table "sales", force: :cascade do |t|
@@ -85,12 +102,13 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_18_030643) do
   end
 
   create_table "utilities", force: :cascade do |t|
-    t.bigint "kiosk_id", null: false
     t.string "name"
-    t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["kiosk_id"], name: "index_utilities_on_kiosk_id"
+    t.integer "quantityperset"
+    t.string "type"
+    t.bigint "category_utility_id"
+    t.index ["category_utility_id"], name: "index_utilities_on_category_utility_id"
   end
 
   create_table "utility_statuses", force: :cascade do |t|
@@ -110,9 +128,11 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_18_030643) do
   add_foreign_key "product_statuses", "kiosks"
   add_foreign_key "product_statuses", "products"
   add_foreign_key "product_statuses", "users"
+  add_foreign_key "products", "category_products"
+  add_foreign_key "products", "category_products", column: "category_products_id"
   add_foreign_key "sales", "kiosks"
   add_foreign_key "sales", "products"
-  add_foreign_key "utilities", "kiosks"
+  add_foreign_key "utilities", "category_utilities"
   add_foreign_key "utility_statuses", "kiosks"
   add_foreign_key "utility_statuses", "utilities"
 end

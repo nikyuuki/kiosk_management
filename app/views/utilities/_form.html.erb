@@ -12,18 +12,18 @@
   <% end %>
 
   <div>
-    <%= form.label :kiosk_id, style: "display: block" %>
-    <%= form.text_field :kiosk_id %>
-  </div>
-
-  <div>
-    <%= form.label :name, style: "display: block" %>
+    <%= form.label :name, "Utility Name" %>
     <%= form.text_field :name %>
   </div>
 
   <div>
-    <%= form.label :description, style: "display: block" %>
-    <%= form.text_field :description %>
+    <%= form.label :quantityperset, "Quantity Per Set" %>
+    <%= form.number_field :quantityperset %>
+  </div>
+
+  <div>
+    <%= form.label :category_utility_id, "Select a Category" %>
+    <%= form.collection_select :category_utility_id, CategoryUtility.all, :id, :name, prompt: "Select a category" %>
   </div>
 
   <div>

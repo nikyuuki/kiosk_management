@@ -4,13 +4,38 @@
 
 <h1>Utilities</h1>
 
-<div id="utilities">
-  <% @utilities.each do |utility| %>
-    <%= render utility %>
-    <p>
-      <%= link_to "Show this utility", utility %>
-    </p>
-  <% end %>
+<div id="search-and-add" style="margin-bottom: 20px;">
+  <%= link_to "New Utility", new_utility_path, class: "btn btn-grad", style: "margin-left: 10px;" %>
+  <%= form_with url: utilities_path, method: :get, local: true, class: "form-inline" do |form| %>
+  <%= form.text_field :search, value: params[:search], placeholder: "Enter utility", class: "form-control", style: "margin-right: 10px;" %>
+    <% end %>
 </div>
 
-<%= link_to "New utility", new_utility_path %>
+<div id="utility">
+  <table class="table">
+    <thead style="background-color: #a2e292; color: black;">
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Quantity/Set</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @utilities.each_with_index do |utility, index| %>
+        <tr>
+          <td><%= index + 1 %></td>
+          <td><%= utility.name %></td>
+          <td><%= utility.category_utility ? utility.category_utility.name : 'No Category' %></td>
+          <td><%= utility.quantityperset %></td>
+          <td>
+            <%= link_to "Show", utility %> |
+            <%= link_to "Edit", edit_utility_path(utility) %> |
+            <%= link_to "Delete", utility, method: :delete, data: { confirm: "Are you sure?" } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

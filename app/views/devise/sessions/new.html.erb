@@ -1,6 +1,7 @@
 
     <div class="registration-form">
         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        
             <div class="form-icon">
                 <h1> sini logo stg </h1>
                 <span><i class="icon icon-user"></i></span>
@@ -21,7 +22,7 @@
         <div class="social-media">
             <h5>Create New Account?</h5>
             <div class="form-group">
-                <%= submit_tag 'Sign Up', class: 'btn btn-grad create-account' %>
+                <%= link_to 'Sign Up', new_user_registration_path, class: 'btn btn-grad create-account' %>
             </div>
         </div>
     </div>

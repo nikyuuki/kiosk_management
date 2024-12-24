@@ -5,13 +5,10 @@
 <h1>Kiosks</h1>
 
 <div id="search-and-add" style="margin-bottom: 20px;">
-  <%= form_with url: kiosks_path, method: :get, local: true, class: "form-inline" do |form| %>
-  <%= form.label :search, "Search Kiosk:", class: "sr-only" %>
-  <%= form.text_field :search, value: params[:search], placeholder: "Enter kiosk code or location", class: "form-control", style: "margin-right: 10px;" %>
-  <%= form.submit "Search", class: "btn btn-secondary" %>
-    <% end %>
-
   <%= link_to "New Kiosk", new_kiosk_path, class: "btn btn-grad", style: "margin-left: 10px;" %>
+  <%= form_with url: kiosks_path, method: :get, local: true, class: "form-inline" do |form| %>
+  <%= form.text_field :search, value: params[:search], placeholder: "Enter kiosk code or location", class: "form-control", style: "margin-right: 10px;" %>
+    <% end %>
 </div>
 
 <div id="kiosks">

@@ -3,7 +3,7 @@
 
   <head>
     <meta charset="utf-8">
-    <meta name="csrf-token" content="<%= csrf_meta_tags %>">
+    <%= csrf_meta_tags %>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -23,11 +23,12 @@
   </head>
 
   <body>
-     <%= render 'layouts/adminheader' %> <!-- Include the header partial -->
+  <%= render 'layouts/adminheader' %> <!-- Include the header partial -->
     <!-- ===============================================-->
     <!--    Main Content-->
     <!-- ===============================================-->
     <main class="main" id="top">
+    
       <div class="main-content">
         <%= yield %>  <!-- Page-specific content will be injected here -->
       </div>

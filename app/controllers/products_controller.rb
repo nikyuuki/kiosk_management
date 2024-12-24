@@ -1,17 +1,18 @@
 class ProductsController < ApplicationController
-  layout "adminapp"  # Use the "adminapp" layout for all actions in this controller
-  before_action :set_product, only: [:edit, :update, :destroy]
+  layout "adminapp"  
+  before_action :set_product, only: %i[edit update destroy]
 
   # GET /products or /products.json
   def index
     @products = if params[:search].present?
-      Product.where("name ILIKE :query OR category ILIKE :query", query: "%#{params[:search]}%")
+      Product.joins(:category_product)
+      .where("products.name ILIKE :query OR category_products.name ILIKE :query", query: "%#{params[:search]}%")
     else
       Product.all
     end
   end
 
-  # GET /products/1 or /products/1.json
+
   def show
     @product = Product.find(params[:id])
     respond_to do |format|
@@ -75,6 +76,7 @@ class ProductsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def product_params
-      params.require(:product).permit(:name, :category)
+      params.require(:product).permit(:name, :priceperpack, :category_product_id)
     end
+    
 end

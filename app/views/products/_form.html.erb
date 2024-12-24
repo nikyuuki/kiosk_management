@@ -17,8 +17,13 @@
   </div>
 
   <div>
-    <%= form.label :category, style: "display: block" %>
-    <%= form.text_field :category %>
+    <%= form.label :category_product_id, "Category" %>
+    <%= form.collection_select :category_product_id, CategoryProduct.all, :id, :name, prompt: "Select a category" %>
+  </div>
+
+  <div>
+    <%= form.label :priceperpack, style: "display: block" %>
+    <%= form.number_field :priceperpack %>
   </div>
 
   <div>
