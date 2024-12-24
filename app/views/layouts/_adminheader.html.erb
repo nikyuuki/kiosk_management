@@ -7,12 +7,12 @@
 
     <!-- Navbar Items -->
     <div class="nav-items">
-      <%= link_to "Home", class: "nav-item" %>
-       <%= link_to "Kiosk", class: "nav-item" %>
+      <%= link_to "Home", admin_dashboard_path, class: "nav-item" %>
+      <%= link_to "Kiosk", kiosks_path, class: "nav-item" %>
       <%= link_to "Attendant", class: "nav-item" %>
-      <%= link_to "Product", class: "nav-item" %>
+      <%= link_to "Product", products_path,  class: "nav-item" %>
       <%= link_to "Combo", class: "nav-item" %>
-      <%= link_to "Utilities",class: "nav-item" %>
+      <%= link_to "Utilities", utilities_path, class: "nav-item" %>
     </div>
 
     <!-- Logout Button -->

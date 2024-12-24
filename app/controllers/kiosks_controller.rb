@@ -1,9 +1,15 @@
 class KiosksController < ApplicationController
+  layout "adminapp"  # Use the "adminapp" layout for all actions in this controller
   before_action :set_kiosk, only: %i[ show edit update destroy ]
 
   # GET /kiosks or /kiosks.json
   def index
-    @kiosks = Kiosk.all
+
+    @kiosks = if params[:search].present?
+      Kiosk.where("name ILIKE :query OR location ILIKE :query", query: "%#{params[:search]}%")
+    else
+      Kiosk.all
+    end
   end
 
   # GET /kiosks/1 or /kiosks/1.json

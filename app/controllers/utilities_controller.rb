@@ -1,4 +1,5 @@
 class UtilitiesController < ApplicationController
+  layout "adminapp"  # Use the "adminapp" layout for all actions in this controller
   before_action :set_utility, only: %i[ show edit update destroy ]
 
   # GET /utilities or /utilities.json

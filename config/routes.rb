@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
- 
   root 'home#index'
 
   # Define other routes for resources
@@ -11,7 +10,11 @@ Rails.application.routes.draw do
   namespace :admin do
     get 'dashboard', to: 'dashboard#index'
   end
-  devise_for :users, controllers: { sessions: 'users/sessions' }
 
-
+  # Devise routes for users
+  devise_for :users, controllers: { 
+    sessions: 'users/sessions', 
+    registrations: 'users/registrations' 
+  }
 end
+

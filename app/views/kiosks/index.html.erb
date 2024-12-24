@@ -4,13 +4,39 @@
 
 <h1>Kiosks</h1>
 
-<div id="kiosks">
-  <% @kiosks.each do |kiosk| %>
-    <%= render kiosk %>
-    <p>
-      <%= link_to "Show this kiosk", kiosk %>
-    </p>
-  <% end %>
+<div id="search-and-add" style="margin-bottom: 20px;">
+  <%= form_with url: kiosks_path, method: :get, local: true, class: "form-inline" do |form| %>
+  <%= form.label :search, "Search Kiosk:", class: "sr-only" %>
+  <%= form.text_field :search, value: params[:search], placeholder: "Enter kiosk code or location", class: "form-control", style: "margin-right: 10px;" %>
+  <%= form.submit "Search", class: "btn btn-secondary" %>
+    <% end %>
+
+  <%= link_to "New Kiosk", new_kiosk_path, class: "btn btn-grad", style: "margin-left: 10px;" %>
 </div>
 
-<%= link_to "New kiosk", new_kiosk_path %>
+<div id="kiosks">
+  <table class="table">
+    <thead style="background-color: #a2e292; color: black;">
+      <tr>
+        <th>#</th>
+        <th>Code</th>
+        <th>Location</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @kiosks.each_with_index do |kiosk, index| %>
+        <tr>
+          <td><%= index + 1 %></td>
+          <td><%= kiosk.name %></td>
+          <td><%= kiosk.location %></td>
+          <td>
+            <%= link_to "Show", kiosk %> |
+            <%= link_to "Edit", edit_kiosk_path(kiosk) %> |
+            <%= link_to "Delete", kiosk, method: :delete, data: { confirm: "Are you sure?" } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

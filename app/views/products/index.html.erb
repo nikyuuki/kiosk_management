@@ -1,16 +1,178 @@
 <p style="color: green"><%= notice %></p>
 
-<% content_for :title, "Products" %>
+<% content_for :title, "Products List" %>
 
 <h1>Products</h1>
 
-<div id="products">
-  <% @products.each do |product| %>
-    <%= render product %>
-    <p>
-      <%= link_to "Show this product", product %>
-    </p>
+<div id="search-and-add" style="margin-bottom: 20px;">
+  <%= link_to "New Product", new_product_path, class: "btn btn-grad", style: "margin-left: 10px;" %>
+
+  <%= form_with url: products_path, method: :get, local: true, class: "form-inline" do |form| %>
+    <%= form.text_field :search, value: params[:search], placeholder: "Search Products..", class: "form-control", style: "margin-right: 10px;" %>
   <% end %>
 </div>
 
-<%= link_to "New product", new_product_path %>
+<div id="products">
+  <table class="table">
+    <thead style="background-color: #a2e292; color: black;">
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @products.each_with_index do |product, index| %>
+        <tr id="product-row-<%= product.id %>">
+          <td><%= index + 1 %></td>
+          <td><%= product.name %></td>
+          <td><%= product.category %></td>
+          <td>
+            <button class="btn btn-link" onclick="showModal('show', <%= product.id %>, '<%= product.name %>', '<%= product.category %>')">Show</button> |
+            <button class="btn btn-link" onclick="showModal('edit ', <%= product.id %>, '<%= product.name %>', '<%= product.category %>')">Edit</button> |
+            <button class="btn btn-link" onclick="showModal('delete', <%= product.id %>, '<%= product.name %>')">Delete</button>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<!-- Show Modal -->
+<div id="show-modal" class="modal" style="display: none;">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('show')">&times;</span>
+    <h2>Product Details</h2>
+    <p id="show-modal-name"></p>
+    <p id="show-modal-category"></p>
+  </div>
+</div>
+
+<!-- Edit Modal -->
+<div id="edit-modal" class="modal" style="display: none;">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('edit')">&times;</span>
+    <h2>Edit Product</h2>
+
+    <!-- Form for editing the product -->
+    <%= form_with(model: @product, url: products_path, method: :patch, local: true, id: "edit-form") do |form| %>
+      <%= form.hidden_field :id, id: 'edit-product-id' %>
+      <div>
+        <%= form.label :name %>
+        <%= form.text_field :name, id: 'edit-name' %>
+      </div>
+
+      <div>
+        <%= form.label :category %>
+        <%= form.text_field :category, id: 'edit-category' %>
+      </div>
+
+      <div>
+        <%= form.submit "Save Changes" %>
+      </div>
+
+      <% if @product && @product.errors.any? %> <!-- Check if @product is present before calling errors -->
+        <div style="color: red">
+          <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
+          <ul>
+            <% @product.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<!-- Delete Modal -->
+<div id="delete-modal" class="modal" style="display: none;">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('delete')">&times;</span>
+    <h2>Delete Product</h2>
+    <p id="delete-message"></p>
+    <button id="delete-confirm-btn" onclick="deleteProduct()">Yes, Delete</button>
+    <button onclick="closeModal('delete')">Cancel</button>
+  </div>
+</div>
+
+<script>
+// Show the modal and fill it with the product details
+function showModal(type, id, name, category) {
+  if (type === 'show') {
+    document.getElementById('show-modal').style.display = 'flex';
+    document.getElementById('show-modal-name').innerText = "Name: " + name;
+    document.getElementById('show-modal-category').innerText = "Category: " + category;
+  } else if (type === 'edit') {
+    document.getElementById('edit-modal').style.display = 'flex';
+    document.getElementById('edit-product-id').value = id;  // Set the product ID
+    document.getElementById('edit-name').value = name;      // Set the initial name
+    document.getElementById('edit-category').value = category;  // Set the initial category
+
+    // Set the form action dynamically
+    document.getElementById('edit-form').action = `/products/${id}`;
+  } else if (type === 'delete') {
+    document.getElementById('delete-modal').style.display = 'flex';
+    document.getElementById('delete-message').innerText = `Are you sure you want to delete the product "${name}"?`;
+    document.getElementById('delete-confirm-btn').setAttribute('data-id', id);
+  }
+}
+
+// Close the modal
+function closeModal(type) {
+  document.getElementById(type + '-modal').style.display = 'none';
+}
+
+// Submit Edit Form using AJAX (no page refresh)
+function submitEditForm(event) {
+  event.preventDefault();
+  const id = document.getElementById('edit-product-id').value;
+  const name = document.getElementById('edit-name').value;
+  const category = document.getElementById('edit-category').value;
+
+  fetch(`/products/${id}`, {
+    method: 'PATCH',
+    headers: {
+      'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ product: { name: name, category: category } })
+  })
+  .then(response => response.json())
+  .then(data => {
+    // Handle the response (e.g., update the product details on the page)
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+}
+
+// Delete Product using AJAX
+function deleteProduct() {
+  const productId = document.getElementById('delete-confirm-btn').getAttribute('data-id');
+
+  fetch(`/products/${productId}`, {
+    method: 'DELETE',
+    headers: {
+      'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+    },
+  })
+  .then(response => {
+    if (response.ok) {
+      return response.json();
+    } else {
+      throw new Error('Error deleting product');
+    }
+  })
+  .then(() => {
+    // Hide the modal and remove the product from the table
+    closeModal('delete');
+    document.querySelector(`#product-row-${productId}`).remove(); // Assuming you have an id for the row
+  })
+  .catch(error => {
+    console.error('Error deleting product:', error);
+    alert('Error deleting product');
+  });
+}
+</script>
