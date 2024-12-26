@@ -1,0 +1,45 @@
+<h1>UTILITIES STATUS</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>NAME</th>
+      <th>CATEGORY</th>
+      <th>DESCRIPTION</th>
+      <th>OPENING</th>
+      <th>CLOSING</th>
+      <th>ACTIONS</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if @utilities.present? %>
+      <% @utilities.each_with_index do |utility, index| %>
+        <% utility_status = @utility_statuses.find { |us| us.utility_id == utility.id } %>
+        <tr>
+          <td><%= index + 1 %></td>
+          <td><%= utility.name %></td>
+          <td><%= utility.type %></td>
+          <td>
+            <%= form_with model: utility_status, url: utility_statuses_path(utility_status), method: :patch, local: true do |f| %>
+              <%= f.text_area :description, value: utility_status&.description, data: { utility_id: utility.id, date: @date, kiosk_id: 1 }, onblur: "this.form.submit();" %>
+          </td>
+          <td>
+            <%= f.check_box :status_opening, checked: utility_status&.status_opening, data: { utility_id: utility.id, date: @date, kiosk_id: 1 }, onclick: "this.form.submit();" %>
+          </td>
+          <td>
+            <%= f.check_box :status_closing, checked: utility_status&.status_closing, data: { utility_id: utility.id, date: @date, kiosk_id: 1 }, onclick: "this.form.submit();" %>
+          </td>
+          <td>
+            <%= f.submit "Save", class: "btn btn-warning btn-sm" %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    <% else %>
+      <tr>
+        <td colspan="7">No utilities found.</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

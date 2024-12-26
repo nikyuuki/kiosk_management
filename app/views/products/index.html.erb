@@ -4,19 +4,30 @@
 
 <h1>Products</h1>
 
-<div id="search-and-add" style="margin-bottom: 20px;">
-  <%= link_to "New Product", new_product_path, class: "btn btn-grad", style: "margin-left: 10px;" %>
+<%= form_with url: products_path, method: :get, class: "mb-3", local: true do %>
+  <div class="row">
+    <div class="col-md-4">
+      <%= text_field_tag :search, params[:search], placeholder: "Search Product", class: "form-control" %>
+    </div>
+    <div class="col-md-2">
+      <%= submit_tag "Search", class: "btn btn-secondary w-100" %>
+    </div>
+    <div class="col-md-2">
+      <%= link_to "Reset", products_path, class: "btn btn-outline-secondary w-100" %>
+    </div>
+    <div class="col-md-4">
+     <%= link_to "New product", new_product_path, class: "btn btn-grad mb-3" %>
+     </div>
+  </div>
+<% end %>
 
-  <%= form_with url: products_path, method: :get, local: true, class: "form-inline" do |form| %>
-    <%= form.text_field :search, value: params[:search], placeholder: "Search Products..", class: "form-control", style: "margin-right: 10px;" %>
-  <% end %>
-</div>
 
 <div id="products">
   <table class="table">
     <thead style="background-color: #a2e292; color: black;">
       <tr>
         <th>#</th>
+        <th>Code</th>
         <th>Name</th>
         <th>Category</th>
         <th>Price</th>
@@ -27,13 +38,15 @@
       <% @products.each_with_index do |product, index| %>
         <tr id="product-row-<%= product.id %>">
           <td><%= index + 1 %></td>
+          <td><%= product.code %></td>
           <td><%= product.name %></td>
           <td><%= product.category_product ? product.category_product.name : 'No Category' %></td>
-          <td><%= product.priceperpack %></td>
+          <td><%= number_to_currency(product.priceperpack, unit: "RM", format: "%u %n") %></td>
+
           <td>
-            <button class="btn btn-link" onclick="showModal('show', <%= product.id %>, '<%= product.name %>', '<%= product.priceperpack %>')">Show</button> |
-            <button class="btn btn-link" onclick="showModal('edit ', <%= product.id %>, '<%= product.name %>', '<%= product.priceperpack %>')">Edit</button> |
-            <button class="btn btn-link" onclick="showModal('delete', <%= product.id %>, '<%= product.name %>')">Delete</button>
+            <button class="btn btn-primary btn-sm" onclick="showModal('show', <%= product.id %>, '<%= product.name %>', '<%= product.priceperpack %>')">Show</button> 
+            <button class="btn btn-warning btn-sm" onclick="showModal('edit ', <%= product.id %>, '<%= product.name %>', '<%= product.priceperpack %>')">Edit</button>
+            <button class="btn btn-danger btn-sm" onclick="showModal('delete', <%= product.id %>, '<%= product.name %>')">Delete</button>
           </td>
         </tr>
       <% end %>

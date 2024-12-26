@@ -5,6 +5,13 @@ Rails.application.routes.draw do
   resources :utilities
   resources :products
   resources :kiosks
+  resources :combos
+  resources :utility_statuses, only: [:index] do
+    collection do
+      post :update_status
+    end
+  end
+  
 
   # Admin dashboard route
   namespace :admin do

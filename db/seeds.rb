@@ -14,9 +14,9 @@ puts "Category utilities seeded successfully!"
 
 # Seed data for category_products
 category_product_names = [
-  'Basah',
-  'Steam',
-  'Goreng',
+  'Dim Sum',
+  'Pau Mini',
+  'Karipap',
   'lain-lain'
 ]
 

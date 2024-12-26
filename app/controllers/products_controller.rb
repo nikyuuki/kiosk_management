@@ -6,7 +6,7 @@ class ProductsController < ApplicationController
   def index
     @products = if params[:search].present?
       Product.joins(:category_product)
-      .where("products.name ILIKE :query OR category_products.name ILIKE :query", query: "%#{params[:search]}%")
+      .where("products.code ILIKE :query OR products.name ILIKE :query OR category_products.name ILIKE :query", query: "%#{params[:search]}%")
     else
       Product.all
     end
@@ -76,7 +76,7 @@ class ProductsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def product_params
-      params.require(:product).permit(:name, :priceperpack, :category_product_id)
+      params.require(:product).permit(:name, :category_product_id, :priceperpack, :code)
     end
     
 end

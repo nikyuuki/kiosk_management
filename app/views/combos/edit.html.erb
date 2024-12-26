@@ -1,0 +1,12 @@
+<% content_for :title, "Editing Combo" %>
+
+<h1>Editing Combo</h1>
+
+<%= render "form", combo: @combo %>
+
+<br>
+
+<div>
+  <%= link_to "Show this Combo", @combo %> |
+  <%= link_to "Back to combos", combos_path %>
+</div>

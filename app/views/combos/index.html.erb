@@ -1,0 +1,55 @@
+<h1>Combos</h1>
+
+<%= form_with url: combos_path, method: :get, class: "mb-3", local: true do %>
+  <div class="row">
+    <div class="col-md-4">
+      <%= text_field_tag :query, params[:query], placeholder: "Search Combos", class: "form-control" %>
+    </div>
+    <div class="col-md-2">
+      <%= submit_tag "Search", class: "btn btn-secondary w-100" %>
+    </div>
+    <div class="col-md-2">
+      <%= link_to "Reset", combos_path, class: "btn btn-outline-secondary w-100" %>
+    </div>
+    <div class="col-md-4">
+     <%= link_to "New Combo", new_combo_path, class: "btn btn-grad mb-3" %>
+     </div>
+  </div>
+<% end %>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Products</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @combos.each_with_index do |combo, index| %>
+      <tr>
+        <td><%= index + 1 %></td>
+        <td><%= combo.name %></td>
+        <td><%= number_to_currency(combo.price, unit: "RM", format: "%u %n") %></td>
+        <td>
+          <% combo.products.each do |product| %>
+            <%= product.name %><br>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to "Show", combo_path(combo), class: "btn btn-primary btn-sm" %>
+          <%= link_to "Edit", edit_combo_path(combo), class: "btn btn-warning btn-sm" %>
+          <%= link_to "Delete", combo_path(combo), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger btn-sm" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+
+
+
+

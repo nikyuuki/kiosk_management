@@ -4,12 +4,22 @@
 
 <h1>Utilities</h1>
 
-<div id="search-and-add" style="margin-bottom: 20px;">
-  <%= link_to "New Utility", new_utility_path, class: "btn btn-grad", style: "margin-left: 10px;" %>
-  <%= form_with url: utilities_path, method: :get, local: true, class: "form-inline" do |form| %>
-  <%= form.text_field :search, value: params[:search], placeholder: "Enter utility", class: "form-control", style: "margin-right: 10px;" %>
-    <% end %>
-</div>
+<%= form_with url: utilities_path, method: :get, class: "mb-3", local: true do %>
+  <div class="row">
+    <div class="col-md-4">
+      <%= text_field_tag :search, params[:search], placeholder: "Search Utility", class: "form-control" %>
+    </div>
+    <div class="col-md-2">
+      <%= submit_tag "Search", class: "btn btn-secondary w-100" %>
+    </div>
+    <div class="col-md-2">
+      <%= link_to "Reset", utilities_path, class: "btn btn-outline-secondary w-100" %>
+    </div>
+    <div class="col-md-4">
+     <%= link_to "New Utility", new_utility_path, class: "btn btn-grad mb-3" %>
+     </div>
+  </div>
+<% end %>
 
 <div id="utility">
   <table class="table">
@@ -30,9 +40,9 @@
           <td><%= utility.category_utility ? utility.category_utility.name : 'No Category' %></td>
           <td><%= utility.quantityperset %></td>
           <td>
-            <%= link_to "Show", utility %> |
-            <%= link_to "Edit", edit_utility_path(utility) %> |
-            <%= link_to "Delete", utility, method: :delete, data: { confirm: "Are you sure?" } %>
+            <%= link_to "Show", utility, class: "btn btn-primary btn-sm" %> 
+            <%= link_to "Edit", edit_utility_path(utility), class: "btn btn-warning btn-sm" %>
+            <%= link_to "Delete", utility, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger btn-sm" %>
           </td>
         </tr>
       <% end %>

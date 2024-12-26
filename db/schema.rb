@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_24_063312) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_24_093925) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -37,10 +37,20 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_24_063312) do
     t.index ["name"], name: "index_category_utilities_on_name", unique: true
   end
 
+  create_table "combo_products", force: :cascade do |t|
+    t.bigint "combo_id", null: false
+    t.bigint "product_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["combo_id"], name: "index_combo_products_on_combo_id"
+    t.index ["product_id"], name: "index_combo_products_on_product_id"
+  end
+
   create_table "combos", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "price", precision: 10, scale: 2
   end
 
   create_table "kiosks", force: :cascade do |t|
@@ -71,6 +81,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_24_063312) do
     t.bigint "category_products_id"
     t.decimal "priceperpack", precision: 10, scale: 2
     t.bigint "category_product_id", null: false
+    t.string "code"
     t.index ["category_product_id"], name: "index_products_on_category_product_id"
     t.index ["category_products_id"], name: "index_products_on_category_products_id"
   end
@@ -114,17 +125,20 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_24_063312) do
   create_table "utility_statuses", force: :cascade do |t|
     t.bigint "kiosk_id", null: false
     t.bigint "utility_id", null: false
-    t.string "status"
     t.string "description"
     t.date "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "status_opening", default: false
+    t.boolean "status_closing", default: false
     t.index ["kiosk_id"], name: "index_utility_statuses_on_kiosk_id"
     t.index ["utility_id"], name: "index_utility_statuses_on_utility_id"
   end
 
   add_foreign_key "attendant_shifts", "kiosks"
   add_foreign_key "attendant_shifts", "users"
+  add_foreign_key "combo_products", "combos"
+  add_foreign_key "combo_products", "products"
   add_foreign_key "product_statuses", "kiosks"
   add_foreign_key "product_statuses", "products"
   add_foreign_key "product_statuses", "users"
