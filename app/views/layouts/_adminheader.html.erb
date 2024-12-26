@@ -1,24 +1,43 @@
-<div class="navbar">
-  <div class="container">
-    <!-- Logo Section -->
-    <div class="logo">
-      <span class="brand-name">LokalitiesFood</span>
-    </div>
+<!-- Sidebar -->
+<div class="sidebar">
+  <!-- Logo Section -->
+  <div class="logo">
+    <span class="brand-name">LokalitiesFood</span>
+  </div>
 
-    <!-- Navbar Items -->
-    <div class="nav-items">
-      <%= link_to "Home", admin_dashboard_path, class: "nav-item" %>
-      <%= link_to "Kiosk", kiosks_path, class: "nav-item" %>
-      <%= link_to "Attendant", class: "nav-item" %>
-      <%= link_to "Product", products_path,  class: "nav-item" %>
-      <%= link_to "Combo", combos_path, class: "nav-item" %>
-      <%= link_to "Utilities", utilities_path, class: "nav-item" %>
-    </div>
+  <!-- Navigation Links -->
+<div class="nav-items">
+  <%= link_to "<i class='bi bi-house-door'></i> Home".html_safe, admin_dashboard_path, class: "nav-item" %>
+  <%= link_to "<i class='bi bi-shop'></i> Kiosk".html_safe, kiosks_path, class: "nav-item" %>
+  <%= link_to "<i class='bi bi-person'></i> Attendant".html_safe, "#", class: "nav-item" %>
+  <%= link_to "<i class='bi bi-box'></i> Product".html_safe, products_path, class: "nav-item" %>
+  <%= link_to "<i class='bi bi-boxes'></i> Combo".html_safe, combos_path, class: "nav-item" %>
+  <%= link_to "<i class='bi bi-tools'></i> Utilities".html_safe, utilities_path, class: "nav-item" %>
+</div>
 
-    <!-- Logout Button -->
-    
-      <div class="form-group">
-            <%= submit_tag 'Log Out', class: 'btn btn-grad create-account' %>
-      </div>
+
+  <!-- Logout Button -->
+  <div class="form-group">
+    <%= submit_tag 'Log Out', class: 'btn btn-grad create-account' %>
   </div>
 </div>
+
+<!-- Sidebar Toggle Button -->
+<button class="sidebar-toggle">
+  ☰
+</button>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const sidebar = document.querySelector(".sidebar");
+  const toggleButton = document.querySelector(".sidebar-toggle");
+
+  // Ensure the toggleButton exists before adding the event listener
+  if (toggleButton) {
+    toggleButton.addEventListener("click", () => {
+      sidebar.classList.toggle("active");
+    });
+  }
+});
+</script>

@@ -5,58 +5,29 @@
   box-sizing: border-box;
 }
 
+/* Body Styles */
 body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
   margin: 0;
   padding: 0;
   background-color: #fff;
+  transition: margin-left 0.3s ease;
 }
 
-/* Sticky Navbar */
-.navbar {
-  background-color: #FFDA91; /* Light yellow background */
-  padding: 10px 10px;
-  position: sticky;
-  top: 0;
-  z-index: 500;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+/* Adjust Body Margin for Larger Screens */
+@media (min-width: 768px) {
+  body {
+    margin-left: 0; /* Remove margin for larger screens to avoid sidebar pushing */
+  }
 }
 
-.container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
+/* No Margin for Smaller Screens */
+@media (max-width: 767px) {
+  body {
+    margin-left: 0;
+  }
 }
-
-.nav-items {
-  display: flex;
-  justify-content: flex-start;
-  gap: 20px;
-}
-
-.nav-items a {
-  text-decoration: none;
-  color: #2F4F2F;
-  font-size: 18px;
-  font-weight: bold;
-  padding: 6px;
-  transition: color 0.3s ease;
-}
-
-.nav-items a:hover {
-  color: #388E3C; /* Green color on hover */
-}
-
-.logo .brand-name {
-  font-family: 'cursive';
-  font-size: 24px;
-  font-weight: bold;
-  color: #2F4F2F;
-  padding-right: 2px;
-}
-
 /* Button Section */
 .btn-grad {background-image: linear-gradient(to right, #16A085 0%, #F4D03F  51%, #16A085  100%)}
 .btn-grad {
@@ -77,32 +48,284 @@ body {
    text-decoration: none;
  }
 
-.main-content {
-  padding: 20px;
+ h1 {
+  font-family: 'cursive', sans-serif;
+  font-size: 36px;
+  font-weight: bold;
+  color: #2F4F2F; /* Dark green for a natural theme */
+  text-align: center;
+  background-image: linear-gradient(to right, #16A085, #F4D03F); /* Gradient effect */
+  -webkit-background-clip: text;
+  background-clip: text;
+  padding: 10px 20px;
+  margin-bottom: 30px;
 }
 
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
+h1 span {
+  font-size: 32px;
+  color: #388E3C; /* Green for emphasis */
+  text-decoration: underline;
+  text-decoration-color: #388E3C; /* Underline with the same green color */
+}
+/* Sidebar Styles */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100%;
+  background-color: #FFDA91; /* Light yellow background */
+  padding: 20px 10px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Space between sections */
+  transition: left 0.3s ease; /* Smooth slide-in effect */
+  overflow-y: auto;
+}
+
+/* Prevent Sidebar from Scrolling Out of View */
+.sidebar::-webkit-scrollbar {
+  width: 8px; /* Customize scrollbar width */
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2); /* Scrollbar thumb color */
+  border-radius: 4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Sidebar Navigation Items */
+.sidebar .nav-items {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  gap: 15px;
+}
+
+.sidebar .nav-items a {
+  text-decoration: none;
+  color: #2F4F2F;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 8px 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.sidebar .nav-items a:hover {
+  background-color: #388E3C;
+  color: #fff;
+}
+
+/* Sidebar Logo */
+.sidebar .logo {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.sidebar .brand-name {
+  font-family: 'cursive';
+  font-size: 24px;
+  font-weight: bold;
+  color: #2F4F2F;
+}
+
+/* Form Group (Logout Button) */
+.sidebar .form-group {
+  margin-top: auto; /* Push logout button to the bottom */
+}
+
+.sidebar .btn-grad.create-account {
+  width: calc(100% - 20px); /* Full width with a little margin */
+  margin: 10px; /* Add margin for spacing around the button */
+  padding: 12px 20px; /* Add padding for a more prominent button */
+  font-size: 16px; /* Adjust font size */
+  border-radius: 10px; /* Slightly rounded corners */
+  text-align: center;
+  background-image: linear-gradient(to right, #16A085 0%, #F4D03F 51%, #16A085 100%);
+  transition: background-position 0.5s ease;
+}
+
+.sidebar .btn-grad.create-account:hover {
+  background-position: right center; /* Hover effect for gradient */
+  color: #fff;
+}
+
+/* Sidebar Toggle Button (Hidden by Default on Large Screens) */
+.sidebar-toggle {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background-color: #FFDA91;
+  border: none;
+  padding: 10px 15px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #2F4F2F;
+  cursor: pointer;
+  border-radius: 5px;
+  z-index: 1100;
+  display: none; /* Hidden by default */
+}
+
+.sidebar-toggle:hover {
+  background-color: #388E3C;
+  color: #fff;
+}
+
+/* Small Screens: Toggle Button and Collapsible Sidebar */
+@media (max-width: 768px) {
+  .sidebar {
+    left: -250px; /* Hide sidebar by default */
+  }
+
+  .sidebar.active {
+    left: 0; /* Show sidebar when active */
+  }
+
+  .sidebar-toggle {
+    display: block; /* Show toggle button */
+  }
+  .logo {
+    margin-left: 50px; /* Add margin to create space for the button */
+  }
+}
+
+/* Main Content Styling */
+.main-content {
+  padding: 20px;
+  margin-left: 250px; /* Adjust for sidebar width */
+  transition: margin-left 0.3s ease;
+}
+
+/* Container for Admin Dashboard */
+.container {
+  width: 100%;
+  margin-top: 50px;
+}
+
+/* Quick Overview and Management Section: Horizontal Layout */
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  flex-wrap: wrap; /* Allow for wrapping */
+}
+
+.col-md-3 {
+  flex: 1 1 22%; /* Flexbox for 4 items in a row */
+  min-width: 240px;
+  margin-bottom: 20px;
+}
+
+.col-md-12 {
+  flex: 1 1 100%;
+  margin-bottom: 20px;
+}
+
+/* Mobile Responsiveness: Stack Vertically */
+@media (max-width: 767px) {
+  .row {
+    flex-direction: column;
+  }
+
+  .col-md-3, .col-md-12 {
     width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: none;
-    justify-content: center;
-    align-items: center;
   }
 
-  .modal-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 5px;
-    width: 300px;
+  .main-content {
+    margin-left: 0; /* Remove margin on smaller screens */
   }
+}
 
-  .close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
+/* Ensure form inputs are displayed side-by-side */
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px; /* Adjust spacing between the columns */
+  flex-wrap: wrap;
+}
+
+.col-md-4, .col-md-2 {
+  flex: 1 1 auto; /* Allow flex items to grow and shrink */
+}
+
+.col-md-4 {
+  max-width: 45%; /* Limit width for larger screens */
+}
+
+.col-md-2 {
+  max-width: 20%; /* Limit width for buttons */
+}
+
+@media (max-width: 767px) {
+  .row {
+    flex-direction: column; /* Stack vertically on small screens */
   }
+  .col-md-4, .col-md-2 {
+    max-width: 100%; /* Allow the columns to take full width on smaller screens */
+  }
+}
+
+/* Card Styling */
+.card {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Card Header and Body */
+.card-body h5 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #388E3C;
+}
+
+.card-body h2 {
+  font-size: 32px;
+  font-weight: bold;
+  color: #16A085;
+  margin-top: 10px;
+}
+
+/* List Group Styling */
+.list-group-item {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.list-group-item a {
+  text-decoration: none;
+  color: #2F4F2F;
+  font-weight: bold;
+}
+
+.list-group-item:hover {
+  background-color: #a2e292;
+}
+
+.list-group-item a:hover {
+  color: #388E3C;
+}
+
+/* Section Titles */
+h1, h3 {
+  font-family: 'cursive', sans-serif;
+  font-size: 36px;
+  color: #2F4F2F;
+  margin-bottom: 20px;
+  text-align: center;
+}

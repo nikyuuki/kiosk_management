@@ -1,84 +1,73 @@
-  <div class="container mt-5">
-    <h1 class="mb-4">Admin Dashboard</h1>
-    
-    <!-- Quick Overview Section -->
-    <div class="row text-center mb-5">
-      <div class="col-md-3">
-        <div class="card shadow">
-          <div class="card-body">
-            <h5>Total Kiosks</h5>
-            <h2><%= Kiosk.count %></h2>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="card shadow">
-          <div class="card-body">
-            <h5>Total Products</h5>
-            <h2><%= Product.count %></h2>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="card shadow">
-          <div class="card-body">
-            <h5>Total Utilities</h5>
-            <h2><%= Utility.count %></h2>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="card shadow">
-          <div class="card-body">
-            <h5>Total Sales</h5>
-            <h2><%= Sale.sum(:total_price) %></h2>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Management Section -->
-    <div class="row">
-      <div class="col-md-6">
-        <h3>Kiosk Management</h3>
-        <ul class="list-group">
-          <li class="list-group-item"><a href="<%= kiosks_path %>">View All Kiosks</a></li>
-          <li class="list-group-item"><a href="<%= new_kiosk_path %>">Add New Kiosk</a></li>
-        </ul>
-      </div>
-      <div class="col-md-6">
-        <h3>Product Management</h3>
-        <ul class="list-group">
-          <li class="list-group-item"><a href="<%= products_path %>">View All Products</a></li>
-          <li class="list-group-item"><a href="<%= new_product_path %>">Add New Product</a></li>
-        </ul>
-      </div>
-    </div>
+<div class="container mt-5">
 
-    <div class="row mt-4">
-      <div class="col-md-6">
-        <h3>Utility Management</h3>
-        <ul class="list-group">
-          <li class="list-group-item"><a href="<%= utilities_path %>">View All Utilities</a></li>
-          <li class="list-group-item"><a href="<%= new_utility_path %>">Add New Utility</a></li>
-        </ul>
-      </div>
-      <%# <div class="col-md-6"> %>
-        <%# <h3>Sales Management</h3> %>
-        <%# <ul class="list-group"> %>
-          <%# <li class="list-group-item"><a href="<%= sales_path %>">View Sales Reports</a></li> %>
-        <%# </ul> %>
-      <%# </div> %>
-    </div>
+<h1 class="mb-4">
+  <span>Admin Dashboard</span>
+</h1>
 
-    <!-- Attendant Management -->
-    <%# <div class="row mt-4"> %>
-      <%# <div class="col-md-6"> %>
-        <%# <h3>Attendant Shifts</h3> %>
-        <%# <ul class="list-group"> %>
-          <%# <li class="list-group-item"><a href="<%= attendant_shifts_path %>">View All Attendant Shifts</a></li> %>
-          <%# <li class="list-group-item"><a href="<%= new_attendant_shift_path %>">Assign New Shift</a></li> %>
-        <%# </ul> %>
-      <%# </div> %>
-    <%# </div> %>
-  </div> 
+  <!-- Quick Overview Section (Horizontal) -->
+  <div class="row text-center mb-5">
+    <div class="col-md-3">
+      <div class="card shadow">
+        <div class="card-body">
+          <h5>Total Kiosks</h5>
+          <h2><%= Kiosk.count %></h2>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card shadow">
+        <div class="card-body">
+          <h5>Total Products</h5>
+          <h2><%= Product.count %></h2>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card shadow">
+        <div class="card-body">
+          <h5>Total Utilities</h5>
+          <h2><%= Utility.count %></h2>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card shadow">
+        <div class="card-body">
+          <h5>Total Sales</h5>
+          <h2><%= Sale.sum(:total_price) %></h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Management Section (Horizontal) -->
+  <div class="row">
+    <div class="col-md-3">
+      <h3>Kiosk Management</h3>
+      <ul class="list-group">
+        <li class="list-group-item"><a href="<%= kiosks_path %>">View All Kiosks</a></li>
+        <li class="list-group-item"><a href="<%= new_kiosk_path %>">Add New Kiosk</a></li>
+      </ul>
+    </div>
+    <div class="col-md-3">
+      <h3>Product Management</h3>
+      <ul class="list-group">
+        <li class="list-group-item"><a href="<%= products_path %>">View All Products</a></li>
+        <li class="list-group-item"><a href="<%= new_product_path %>">Add New Product</a></li>
+      </ul>
+    </div>
+    <div class="col-md-3">
+      <h3>Utility Management</h3>
+      <ul class="list-group">
+        <li class="list-group-item"><a href="<%= utilities_path %>">View All Utilities</a></li>
+        <li class="list-group-item"><a href="<%= new_utility_path %>">Add New Utility</a></li>
+      </ul>
+    </div>
+    <div class="col-md-3">
+      <h3>Sales Management</h3>
+      <ul class="list-group">
+        <%# <li class="list-group-item"><a href="<%= sales_path %>">View All Sales</a></li> %>
+      </ul>
+    </div>
+  </div>
+</div>
