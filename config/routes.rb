@@ -4,8 +4,9 @@ Rails.application.routes.draw do
   # Define other routes for resources
   resources :utilities
   resources :products
-  resources :kiosks
+  resources :kiosks 
   resources :combos
+  resources :attendant_shifts
   resources :utility_statuses, only: [:index] do
     collection do
       post :update_status
@@ -13,15 +14,24 @@ Rails.application.routes.draw do
   end
   
 
-  # Admin dashboard route
+
   namespace :admin do
-    get 'dashboard', to: 'dashboard#index'
+    get 'dashboard', to: 'dashboard#index', as: 'dashboard'
+  end
+  namespace :users do
+    get 'dashboard', to: 'dashboard#index', as: 'dashboard' do
+      post 'time_in', on: :member
+      post 'time_out', on: :member
+    end
+
   end
 
-  # Devise routes for users
+
+  devise_for :admin, controllers: { 
+    sessions: 'admin/sessions' }
+
   devise_for :users, controllers: { 
-    sessions: 'users/sessions', 
-    registrations: 'users/registrations' 
-  }
+    sessions: 'users/sessions' }
+
 end
 

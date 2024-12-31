@@ -119,3 +119,47 @@ body{
    color: #fff;
    text-decoration: none;
  }
+
+
+ /* Base styling for the login card */
+.login-card {
+    width: 100%;
+    max-width: 400px; /* Control the width of the card */
+    margin: 50px auto; /* Center the card horizontally and add top margin */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Styling for the card header */
+  .login-header {
+    margin-bottom: 20px;
+  }
+  
+  .login-header h2 {
+    font-size: 24px;
+    color: #333;
+  }
+  
+  /* Body content inside the card */
+  .login-body {
+    margin-bottom: 20px;
+  }
+  
+  .login-body p {
+    font-size: 16px;
+    margin-bottom: 20px;
+    color: #555;
+  }
+  
+  /* Ensure buttons are centered at the bottom */
+  .login-body .btn {
+    display: block;
+    width: 80%; /* Make buttons wider */
+    margin: 10px auto;
+  }
+  
+  

@@ -10,14 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_24_093925) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_31_024555) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "admins", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_admins_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+  end
+
   create_table "attendant_shifts", force: :cascade do |t|
-    t.bigint "user_id", null: false
     t.bigint "kiosk_id", null: false
     t.date "date"
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["kiosk_id"], name: "index_attendant_shifts_on_kiosk_id"
@@ -25,9 +37,10 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_24_093925) do
   end
 
   create_table "category_products", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_category_products_on_name", unique: true
   end
 
   create_table "category_utilities", force: :cascade do |t|
@@ -35,15 +48,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_24_093925) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_category_utilities_on_name", unique: true
-  end
-
-  create_table "combo_products", force: :cascade do |t|
-    t.bigint "combo_id", null: false
-    t.bigint "product_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["combo_id"], name: "index_combo_products_on_combo_id"
-    t.index ["product_id"], name: "index_combo_products_on_product_id"
   end
 
   create_table "combos", force: :cascade do |t|
@@ -62,7 +66,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_24_093925) do
 
   create_table "product_statuses", force: :cascade do |t|
     t.bigint "kiosk_id", null: false
-    t.bigint "user_id", null: false
     t.bigint "product_id", null: false
     t.string "status"
     t.integer "quantity"
@@ -71,19 +74,14 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_24_093925) do
     t.datetime "updated_at", null: false
     t.index ["kiosk_id"], name: "index_product_statuses_on_kiosk_id"
     t.index ["product_id"], name: "index_product_statuses_on_product_id"
-    t.index ["user_id"], name: "index_product_statuses_on_user_id"
   end
 
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "category_products_id"
     t.decimal "priceperpack", precision: 10, scale: 2
-    t.bigint "category_product_id", null: false
     t.string "code"
-    t.index ["category_product_id"], name: "index_products_on_category_product_id"
-    t.index ["category_products_id"], name: "index_products_on_category_products_id"
   end
 
   create_table "sales", force: :cascade do |t|
@@ -99,25 +97,24 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_24_093925) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
-    t.string "password_digest"
-    t.string "role"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
-    t.datetime "reset_password_sent_at", precision: nil
-    t.datetime "remember_created_at", precision: nil
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "time_in"
+    t.datetime "time_out"
+    t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   create_table "utilities", force: :cascade do |t|
     t.string "name"
+    t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "quantityperset"
-    t.string "type"
     t.bigint "category_utility_id"
     t.index ["category_utility_id"], name: "index_utilities_on_category_utility_id"
   end
@@ -137,13 +134,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_24_093925) do
 
   add_foreign_key "attendant_shifts", "kiosks"
   add_foreign_key "attendant_shifts", "users"
-  add_foreign_key "combo_products", "combos"
-  add_foreign_key "combo_products", "products"
   add_foreign_key "product_statuses", "kiosks"
   add_foreign_key "product_statuses", "products"
-  add_foreign_key "product_statuses", "users"
-  add_foreign_key "products", "category_products"
-  add_foreign_key "products", "category_products", column: "category_products_id"
   add_foreign_key "sales", "kiosks"
   add_foreign_key "sales", "products"
   add_foreign_key "utilities", "category_utilities"
