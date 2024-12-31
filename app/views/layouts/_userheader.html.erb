@@ -7,12 +7,12 @@
 
   <!-- Navigation Links -->
 <div class="nav-items">
-  <%= link_to "<i class='bi bi-house-door'></i> Home".html_safe, admin_dashboard_path, class: "nav-item" %>
-  <%= link_to "<i class='bi bi-shop'></i> Kiosk".html_safe, kiosks_path, class: "nav-item" %>
-  <%= link_to "<i class='bi bi-person'></i> Attendant".html_safe,  attendant_shifts_path, class: "nav-item" %>
-  <%= link_to "<i class='bi bi-box'></i> Product".html_safe, products_path, class: "nav-item" %>
-  <%= link_to "<i class='bi bi-boxes'></i> Combo".html_safe, combos_path, class: "nav-item" %>
-  <%= link_to "<i class='bi bi-tools'></i> Utilities".html_safe, utilities_path, class: "nav-item" %>
+  <%= link_to "<i class='bi bi-house-door'></i> Home".html_safe, users_dashboard_path, class: "nav-item" %> 
+  <%= link_to "<i class='bi bi-shop'></i> Check In".html_safe, time_in_kiosk_path, class: "nav-item" %>
+  <%# <%= link_to "<i class='bi bi-person'></i> Attendant".html_safe, attendant_shifts_path, class: "nav-item" %> 
+  <%# <%= link_to "<i class='bi bi-box'></i> Product".html_safe, products_path, class: "nav-item" %> 
+  <%# <%= link_to "<i class='bi bi-boxes'></i> Combo".html_safe, combos_path, class: "nav-item" %> 
+  <%= link_to "<i class='bi bi-tools'></i> Utilities".html_safe, utility_statuses_path, class: "nav-item" %>
 </div>
 
 

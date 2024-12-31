@@ -8,8 +8,14 @@
 
     <!-- Buttons Section -->
     <div class="nav-buttons">
-      <%= link_to 'Log In', new_user_session_path, class: 'btn gradient-btn' %>
-      <%= link_to 'Sign Up', new_user_registration_path, class: 'btn gradient-btn' %>
+      <% if user_signed_in? %>
+        <%= button_to "Sign out", destroy_user_session_path, method: :delete %>
+      <% elsif admin_signed_in? %>
+        <%= button_to "Sign out", destroy_admin_session_path, method: :delete , class: "btn btn-grad" %>
+      <% else %>
+        <%= link_to "Sign In", new_user_session_path %>
+      <% end %>
     </div>
+
   </div>
 </nav>

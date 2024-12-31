@@ -7,21 +7,29 @@
 </h1>
 
 <%= form_with url: kiosks_path, method: :get, class: "mb-3", local: true do %>
-  <div class="row">
-    <div class="col-md-4">
+  <div class="row align-items-center">
+    <!-- Search field -->
+    <div class="col-md-4 mb-3 mb-md-0">
       <%= text_field_tag :search, params[:search], placeholder: "Search Kiosk", class: "form-control" %>
     </div>
-    <div class="col-md-1">
+
+    <!-- Search button -->
+    <div class="col-md-2 mb-3 mb-md-0">
       <%= submit_tag "Search", class: "btn btn-secondary w-100" %>
     </div>
-    <div class="col-md-1">
+
+    <!-- Reset button -->
+    <div class="col-md-2 mb-3 mb-md-0">
       <%= link_to "Reset", kiosks_path, class: "btn btn-outline-secondary w-100" %>
     </div>
-    <div class="col-md-3">
-      <%= link_to "New Kiosk", new_kiosk_path, class: "btn btn-grad mb-3" %>
+
+    <!-- New Kiosk button -->
+    <div class="col-md-2 mb-3 mb-md-0">
+      <%= link_to "New Kiosk", new_kiosk_path, class: "btn btn-grad w-100" %>
     </div>
   </div>
 <% end %>
+
 
 
 <div id="kiosks">

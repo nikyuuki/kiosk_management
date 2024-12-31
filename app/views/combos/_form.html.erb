@@ -1,20 +1,27 @@
-<%= form_with(model: @combo, local: true) do |form| %>
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
+<div class="card p-3 mb-3">
+  <%= form_with(model: @combo, local: true, class: "needs-validation", novalidate: true) do |form| %>
+    <div class="mb-3">
+      <%= form.label :name, class: "form-label" %>
+      <%= form.text_field :name, class: "form-control" %>
+    </div>
 
-  <div class="field">
-    <%= form.label :price %>
-    <%= form.number_field :price, step: 0.01 %>
-  </div>
+    <div class="mb-3">
+      <%= form.label :price, class: "form-label" %>
+      <%= form.number_field :price, step: 0.01, class: "form-control" %>
+    </div>
 
-  <div class="field">
-    <%= form.label :products %>
-    <%= form.collection_check_boxes(:product_ids, Product.all, :id, :name) %>
-  </div>
+    <div class="mb-3">
+      <%= form.label :products, class: "form-label" %>
+      <%= form.collection_check_boxes(:product_ids, Product.all, :id, :name, class: "form-check-input") do |b| %>
+        <div class="form-check">
+          <%= b.check_box %>
+          <%= b.label(class: "form-check-label") %>
+        </div>
+      <% end %>
+    </div>
 
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+    <div class="mb-3">
+      <%= form.submit "Save Combo", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>

@@ -1,12 +1,17 @@
-<div id="<%= dom_id kiosk %>">
-  <p>
-    <strong>Name:</strong>
-    <%= kiosk.name %>
-  </p>
+<div id="<%= dom_id kiosk %>" class="card p-3 mb-3">
+  <h3 class="card-title mb-3">Kiosk Details</h3>
 
-  <p>
-    <strong>Location:</strong>
-    <%= kiosk.location %>
-  </p>
+  <div class="mb-3">
+    <p class="mb-1">
+      <strong>Name:</strong>
+      <%= kiosk.name %>
+    </p>
+  </div>
 
+  <div class="mb-3">
+    <p class="mb-1">
+      <strong>Location:</strong>
+      <%= kiosk.location %>
+    </p>
+  </div>
 </div>

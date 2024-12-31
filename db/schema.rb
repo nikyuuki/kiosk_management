@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_31_024555) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_31_033908) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -50,6 +50,16 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_31_024555) do
     t.index ["name"], name: "index_category_utilities_on_name", unique: true
   end
 
+  create_table "combo_products", force: :cascade do |t|
+    t.bigint "combo_id", null: false
+    t.bigint "product_id", null: false
+    t.integer "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["combo_id"], name: "index_combo_products_on_combo_id"
+    t.index ["product_id"], name: "index_combo_products_on_product_id"
+  end
+
   create_table "combos", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -82,6 +92,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_31_024555) do
     t.datetime "updated_at", null: false
     t.decimal "priceperpack", precision: 10, scale: 2
     t.string "code"
+    t.bigint "category_product_id", null: false
+    t.index ["category_product_id"], name: "index_products_on_category_product_id"
   end
 
   create_table "sales", force: :cascade do |t|
@@ -116,6 +128,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_31_024555) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "category_utility_id"
+    t.integer "quantityperset", default: 0
     t.index ["category_utility_id"], name: "index_utilities_on_category_utility_id"
   end
 
@@ -134,8 +147,11 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_31_024555) do
 
   add_foreign_key "attendant_shifts", "kiosks"
   add_foreign_key "attendant_shifts", "users"
+  add_foreign_key "combo_products", "combos"
+  add_foreign_key "combo_products", "products"
   add_foreign_key "product_statuses", "kiosks"
   add_foreign_key "product_statuses", "products"
+  add_foreign_key "products", "category_products"
   add_foreign_key "sales", "kiosks"
   add_foreign_key "sales", "products"
   add_foreign_key "utilities", "category_utilities"

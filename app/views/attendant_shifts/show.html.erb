@@ -1,0 +1,31 @@
+<h1>Attendant shift</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Email</th>
+      <th>Time in at</th>
+      <th>Time out</th>
+      <th>Kiost</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if @user.present? %>
+       <% @user.each_with_index do |u, index| %>
+        <tr>
+          <td><%= index + 1 %></td> 
+          <td><%= u.email %></td>
+          <td><%= u.time_in %></td> 
+          <td><%= u.time_out %></td> 
+          <td> Kiost here%></td> 
+         
+        </tr>
+      <% end %>
+    <% else %>
+      <tr>
+        <td colspan="7">No user found.</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

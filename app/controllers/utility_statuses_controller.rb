@@ -1,5 +1,5 @@
 class UtilityStatusesController < ApplicationController
-  layout "adminapp"  # Use the "adminapp" layout for all actions in this controller
+  layout "userapp"  # Use the "adminapp" layout for all actions in this controller
   before_action :set_utility, only: [:update]
   def index
     # Fetch all utilities (or your logic for fetching utilities)
@@ -54,5 +54,8 @@ class UtilityStatusesController < ApplicationController
 
   def set_utility
     @utility = Utility.find(params[:utility_id])
+  end
+  def set_kiost
+    @Kiost = Kiost.find_by(id: params[:kiost_id])
   end
 end

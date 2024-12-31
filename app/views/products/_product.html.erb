@@ -1,20 +1,31 @@
-<div id="<%= dom_id product %>">
-  <p>
-    <strong>Name:</strong>
-    <%= product.name %>
-  </p>
-  <p>
-    <strong>Code:</strong>
-    <%= product.code %>
-  </p>
-  <p>
-    <strong>Type</strong>
-    <%= product.category_product.name %>
-  </p>
-  <p>
-    <strong>Description:</strong>
-    <%= product.priceperpack %>
-  </p>
+<div id="<%= dom_id product %>" class="card p-3 mb-3">
+  <h3 class="card-title mb-3">Product Details</h3>
 
+  <div class="mb-3">
+    <p class="mb-1">
+      <strong>Name:</strong>
+      <%= product.name %>
+    </p>
+  </div>
 
+  <div class="mb-3">
+    <p class="mb-1">
+      <strong>Code:</strong>
+      <%= product.code %>
+    </p>
+  </div>
+
+  <div class="mb-3">
+    <p class="mb-1">
+      <strong>Type:</strong>
+      <%= product.category_product.name %>
+    </p>
+  </div>
+
+  <div class="mb-3">
+    <p class="mb-1">
+      <strong>Price:</strong>
+      <%= number_to_currency(product.priceperpack) %>
+    </p>
+  </div>
 </div>

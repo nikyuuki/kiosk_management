@@ -1,9 +1,14 @@
-<h1><%= @combo.name %></h1>
-<p>Price: <%= number_to_currency(@combo.price) %></p>
+<div class="card p-3 mb-3">
+  <h1 class="card-title mb-3"><%= @combo.name %></h1>
+  
+  <p class="lead">Price: <%= number_to_currency(@combo.price) %></p>
 
-<h2>Products in this Combo:</h2>
-<ul>
-  <% @combo.products.each do |product| %>
-    <li><%= product.name %> - <%= number_to_currency(product.priceperpack) %></li>
-  <% end %>
-</ul>
+  <h2 class="mb-3">Products in this Combo:</h2>
+  <ul class="list-group">
+    <% @combo.products.each do |product| %>
+      <li class="list-group-item">
+        <%= product.name %> - <%= number_to_currency(product.priceperpack) %>
+      </li>
+    <% end %>
+  </ul>
+</div>

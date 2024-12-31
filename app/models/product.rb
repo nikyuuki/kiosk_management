@@ -1,6 +1,6 @@
 class Product < ApplicationRecord
     belongs_to :category_product
-    has_many :combo_products, dependent: :destroy
+    has_many :combo_products
     has_many :combos, through: :combo_products
 
     validates :name, presence: true

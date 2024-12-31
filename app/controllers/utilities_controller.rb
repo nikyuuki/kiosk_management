@@ -74,5 +74,4 @@ class UtilitiesController < ApplicationController
     def utility_params
       params.require(:utility).permit(:name, :quantityperset, :category_utility_id)
     end
-    
-end
+  end

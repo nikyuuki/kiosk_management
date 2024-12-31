@@ -1,27 +1,28 @@
-<%= form_with(model: kiosk) do |form| %>
-  <% if kiosk.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(kiosk.errors.count, "error") %> prohibited this kiosk from being saved:</h2>
+<div class="card p-3 mb-3">
+  <%= form_with(model: kiosk, class: "needs-validation", novalidate: true) do |form| %>
+    <% if kiosk.errors.any? %>
+      <div class="alert alert-danger">
+        <h4 class="alert-heading"><%= pluralize(kiosk.errors.count, "error") %> prohibited this kiosk from being saved:</h4>
+        <ul>
+          <% kiosk.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
 
-      <ul>
-        <% kiosk.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+    <div class="mb-3">
+      <%= form.label :name, class: "form-label" %>
+      <%= form.text_field :name, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :location, class: "form-label" %>
+      <%= form.text_field :location, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.submit "Save Kiosk", class: "btn btn-primary" %>
     </div>
   <% end %>
-
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div>
-    <%= form.label :location, style: "display: block" %>
-    <%= form.text_field :location %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

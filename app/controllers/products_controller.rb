@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  layout "adminapp"  
+  layout "adminapp"
   before_action :set_product, only: %i[edit update destroy]
 
   # GET /products or /products.json
@@ -53,7 +53,7 @@ class ProductsController < ApplicationController
   # PATCH/PUT /products/1 or /products/1.json
   def update
     if @product.update(product_params)
-      redirect_to @product, notice: 'Product was successfully updated.'
+      redirect_to @product, notice: "Product was successfully updated."
     else
       render :edit
     end
@@ -63,7 +63,7 @@ class ProductsController < ApplicationController
   def destroy
     @product.destroy
     respond_to do |format|
-      format.html { redirect_to products_path, notice: 'Product was successfully deleted.' }
+      format.html { redirect_to products_path, notice: "Product was successfully deleted." }
       format.json { head :no_content }
     end
   end
@@ -78,5 +78,4 @@ class ProductsController < ApplicationController
     def product_params
       params.require(:product).permit(:name, :category_product_id, :priceperpack, :code)
     end
-    
 end
