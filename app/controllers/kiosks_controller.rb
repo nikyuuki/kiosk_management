@@ -4,7 +4,6 @@ class KiosksController < ApplicationController
 
   # GET /kiosks or /kiosks.json
   def index
-
     @kiosks = if params[:search].present?
       Kiosk.where("name ILIKE :query OR location ILIKE :query", query: "%#{params[:search]}%")
     else
@@ -53,11 +52,11 @@ class KiosksController < ApplicationController
     end
   end
 
-  def check_in
-    @kiosk = Kiosk.find(params[:id])
-    Rails.logger.info " the kiost id is #{@kiost.inspect}"
-    
-  end
+  # def check_in
+  #   @kiosk = Kiosk.find(params[:id])
+  #   Rails.logger.info " the kiost id is #{@kiost.inspect}"
+
+  # end
 
   # DELETE /kiosks/1 or /kiosks/1.json
   def destroy

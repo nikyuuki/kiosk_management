@@ -1,0 +1,46 @@
+<section class="vh-100">
+  <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+    <div class="container h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+          <div class="card" style="border-radius: 15px;">
+            <div class="card-body p-5">
+              <h1 class="text-center mb-4">Sign In</h1>
+
+              <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+                
+                <div data-mdb-input-init class="form-outline mb-4">
+                  <%= f.label :email, 'Your Email', class: 'form-label' %>
+                  <%= f.email_field :email, id: 'form3Example3cg', class: 'form-control form-control-lg' %>
+                </div>
+
+                <div data-mdb-input-init class="form-outline mb-4">
+                  <%= f.label :password, 'Password', class: 'form-label' %>
+                  <%= f.password_field :password, id: 'form3Example4cg', class: 'form-control form-control-lg' %>
+                </div>
+
+                <div class="d-flex justify-content-center">
+                  <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-grad create-account">
+                    Login
+                  </button>
+                </div>
+
+                <div class="row gap-2 py-2 text-center">
+                    <h5>Create New Account?</h5>
+                    <div class="form-group">
+                        <%= link_to 'create Account', new_admin_registration_path, class: 'btn btn-grad create-account' %>
+                    </div>
+                </div>
+
+              
+              <% end %>  
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+

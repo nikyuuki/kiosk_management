@@ -1,0 +1,6 @@
+<h1><%= @category_product.name %> Details</h1>
+
+<p><strong>Name:</strong> <%= @category_product.name %></p>
+
+<%= link_to 'Edit', edit_category_product_path(@product, @category_product), class: "btn btn-primary" %> |
+<%= link_to 'Back to Category Products', category_products_path(@product), class: "btn btn-secondary" %>

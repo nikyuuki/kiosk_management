@@ -1,0 +1,22 @@
+<h1>Edit Category Product</h1>
+
+<%= form_with model: [@product, @category_product], local: true do |form| %>
+  <% if @category_product.errors.any? %>
+    <div class="alert alert-danger">
+      <ul>
+        <% @category_product.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+
+  <%= form.submit "Update Category Product", class: "btn btn-success" %>
+<% end %>
+
+<%= link_to 'Back to Category Products', category_products_path(@product), class: "btn btn-secondary" %>

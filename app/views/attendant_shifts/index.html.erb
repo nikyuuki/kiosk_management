@@ -7,8 +7,6 @@
       <th>User</th>
       <th>Created at</th>
       <th>Update at</th>
-      <th>Time in at</th>
-      <th>Time out</th>
       <th>Action</th>
     </tr>
   </thead>
@@ -20,8 +18,6 @@
           <td><%= u.email %></td>
           <td><%= u.created_at.strftime("%B %d, %Y %H:%M") %></td> 
           <td><%= u.updated_at.strftime("%B %d, %Y %H:%M") %></td> 
-          <td><%= u.time_in %></td> 
-          <td><%= u.time_out %></td> 
           <td>
             <%= link_to "Show", attendant_shift_path(u.id), class: "btn btn-primary btn-sm"%> 
           </td>

@@ -9,11 +9,21 @@
 <div class="nav-items">
   <%= link_to "<i class='bi bi-house-door'></i> Home".html_safe, admin_dashboard_path, class: "nav-item" %>
   <%= link_to "<i class='bi bi-shop'></i> Kiosk".html_safe, kiosks_path, class: "nav-item" %>
-  <%= link_to "<i class='bi bi-person'></i> Attendant".html_safe,  attendant_shifts_path, class: "nav-item" %>
-  <%= link_to "<i class='bi bi-box'></i> Product".html_safe, products_path, class: "nav-item" %>
+  <%= link_to "<i class='bi bi-person'></i> Attendant".html_safe, attendant_shifts_path, class: "nav-item" %>
+
+  <!-- Product Section with Dropdown -->
+  <div class="nav-item dropdown">
+    <%= link_to "<i class='bi bi-box'></i> Product".html_safe, "#", class: "nav-link dropdown-toggle", data: { toggle: "dropdown" } %>
+    <div class="dropdown-menu">
+      <%= link_to "<i class='bi bi-list'></i> Product List".html_safe, products_path, class: "dropdown-item" %>
+      <%= link_to "<i class='bi bi-boxes'></i> Category Product".html_safe, category_products_path, class: "dropdown-item" %>
+    </div>
+  </div>
+
   <%= link_to "<i class='bi bi-boxes'></i> Combo".html_safe, combos_path, class: "nav-item" %>
   <%= link_to "<i class='bi bi-tools'></i> Utilities".html_safe, utilities_path, class: "nav-item" %>
 </div>
+
 
 
   <!-- Logout Button -->

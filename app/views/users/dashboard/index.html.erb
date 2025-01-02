@@ -1,22 +1,71 @@
-<% if @kiosks.present? %>
-<div class="container mt-5" >
-<h1>Select Kiosks</h1>
-  <div class="col-lg-3 col-md-6">
-    <% @kiosks.each do |kiosk| %>
-      <div class="card shadow ">
-        <div class="card-body text-center ">
-            <h5><%= kiosk.name %></h5>
-            <div class="">
-              <i class="bi bi-geo-alt" style="font-size: 16px; padding-right:5px  "></i>
-              <p class=""><%= kiosk.location%></p>
-            </div>  
-            <%= link_to "Check in", utility_statuses_path , class: "btn btn btn-grad btn-sm"%>   
-        </div> 
-      </div>  
-    <% end %>
+<%= form_with url: users_dashboard_path, method: :get, local: true, class: "mb-4", id: "kiosk-search-form" do %>
+  <div class="input-group">
+    <%= text_field_tag :query, params[:query], placeholder: "Search by name or location", class: "form-control", id: "kiosk-search-input" %>
+    <button class="btn btn-primary" type="submit">Search</button>
   </div>
-</div>
- 
-<% else %>
-  <p>No kiosks found.</p>
 <% end %>
+
+<% if @kiosks.present? %>
+  <div class="container mt-5">
+    <h1 class="mb-4 text-center">Select Kiosks</h1>
+    <div class="row g-4" id="kiosks-container"> <!-- Add id for targeting -->
+      <% @kiosks.each do |kiosk| %>
+        <div class="col-lg-3 col-md-4 col-sm-6 kiosk-card" data-name="<%= kiosk.name.downcase %>" data-location="<%= kiosk.location.downcase %>">
+          <div class="card shadow h-100">
+            <div class="card-body text-center">
+              <h3 class="card-title"><%= kiosk.name %></h3>
+              <div class="mb-3 d-flex justify-content-center align-items-center">
+                <i class="bi bi-geo-alt me-2" style="font-size: 16px;"></i>
+                <p class="mb-0"><%= kiosk.location %></p>
+              </div>
+              <%= button_to 'Check in', users_check_in_path, method: :post, data: { confirm: 'Are you sure you want to check out?' }, class: "btn btn-primary btn-sm" %>
+              <%= link_to "Show", users_kiost_path(kiosk.id), class: "btn btn-primary btn-sm"%> 
+            </div>
+          </div>
+        </div>
+      <% end %>
+      
+    </div>
+  </div>
+<% end %>
+
+<!-- Display message if no kiosks match the search -->
+<div id="no-kiosks-message" class="text-center mt-4" style="display: none;">
+  <p>No kiosks match your search.</p>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // Select search input and kiosk cards
+    const searchInput = document.getElementById("kiosk-search-input");
+    const kiosksContainer = document.getElementById("kiosks-container");
+    const kioskCards = document.querySelectorAll(".kiosk-card");
+    const noKiosksMessage = document.getElementById("no-kiosks-message");
+
+    if (searchInput) {
+      searchInput.addEventListener("input", () => {
+        const query = searchInput.value.toLowerCase();
+        let visibleCount = 0;
+
+        kioskCards.forEach((card) => {
+          const name = card.getAttribute("data-name");
+          const location = card.getAttribute("data-location");
+
+          if (name.includes(query) || location.includes(query)) {
+            card.style.display = ""; // Show matching cards
+            visibleCount++;
+          } else {
+            card.style.display = "none"; // Hide non-matching cards
+          }
+        });
+
+        // Show or hide the "No Kiosks" message
+        if (visibleCount === 0) {
+          noKiosksMessage.style.display = "block";
+        } else {
+          noKiosksMessage.style.display = "none";
+        }
+      });
+    }
+  });
+</script>

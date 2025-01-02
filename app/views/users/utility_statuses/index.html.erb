@@ -19,7 +19,7 @@
         <tr>
           <td><%= index + 1 %></td>
           <td><%= utility.name %></td>
-          <td><%= utility.type %></td>
+          <td><%= utility.quantityperset %></td>
           <td>
             <%= form_with model: utility_status, url: utility_statuses_path(utility_status), method: :patch, local: true do |f| %>
               <%= f.text_area :description, value: utility_status&.description, data: { utility_id: utility.id, date: @date, kiosk_id: 1 }, onblur: "this.form.submit();" %>

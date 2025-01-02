@@ -1,6 +1,7 @@
 class UtilityStatusesController < ApplicationController
   layout "userapp"  # Use the "adminapp" layout for all actions in this controller
-  before_action :set_utility, only: [:update]
+  before_action :set_utility, only: [ :update ]
+
   def index
     # Fetch all utilities (or your logic for fetching utilities)
     @utilities = Utility.all
@@ -27,9 +28,9 @@ class UtilityStatusesController < ApplicationController
   def update_status
     utility_status = UtilityStatus.find_or_initialize_by(utility_id: params[:utility_id], date: params[:date], kiosk_id: params[:kiosk_id])
 
-    if params[:status] == 'status_opening'
+    if params[:status] == "status_opening"
       utility_status.status_opening = params[:value]
-    elsif params[:status] == 'status_closing'
+    elsif params[:status] == "status_closing"
       utility_status.status_closing = params[:value]
     end
 

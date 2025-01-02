@@ -1,0 +1,23 @@
+<h1>Category Products</h1>
+<%= link_to 'New Category Product', new_category_product_path(@product), class: "btn btn-primary" %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @category_products.each do |category_product| %>
+      <tr>
+        <td><%= category_product.name %></td>
+        <td>
+          <%= link_to 'Show', category_product_path(@product, category_product) %> |
+          <%= link_to 'Edit', edit_category_product_path(@product, category_product) %> |
+          <%= link_to 'Destroy', category_product_path(@product, category_product), method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
